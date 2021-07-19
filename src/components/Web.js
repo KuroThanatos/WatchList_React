@@ -7,6 +7,7 @@ import Home from '../pages/Welcome'
 import NotFound from '../pages/NotFound' 
 import Add from '../pages/Add'
 import List from '../pages/List'
+import Edit from '../pages/Edit'
 
 const Routes = () => {
     return (
@@ -15,8 +16,9 @@ const Routes = () => {
                 <Switch>
                     <Route path="/" exact component={Home} />
                     
-                        <Route path="/add"  component={Add}/>
-                        <Route path="/list"  component={List}/>
+                    <Route path="/add"  component={Add}/>
+                    <Route path="/list"  component={List}/>
+                    <Route path="/edit" component={Edit} />
 
 
                     <Route component={NotFound} />

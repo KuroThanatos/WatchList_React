@@ -1,13 +1,15 @@
-import logo from '../logo.svg';
+import Cards from "../components/Cards";
 import "../css/App.css";
 
 const List = () => {
     return (
-        <div className="Lista">
-          <div className ="titulo-lista">
-            <h3>Lista de Filmes</h3>
-          </div>
-          
+        <div className="container">
+            <div className="row">
+                <div className ="col-12 pl-5 text-light">
+                    <h3>Lista de Filmes</h3>
+                </div>
+                <Cards />
+            </div>
         </div>
     );
 }
