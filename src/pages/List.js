@@ -1,15 +1,15 @@
 import logo from '../logo.svg';
 import "../css/App.css";
 
-function List() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>teste3</h1>
-      </header>
-    </div>
-  );
+const List = () => {
+    return (
+        <div className="Lista">
+          <div className ="titulo-lista">
+            <h3>Lista de Filmes</h3>
+          </div>
+          
+        </div>
+    );
 }
 
 export default List;
