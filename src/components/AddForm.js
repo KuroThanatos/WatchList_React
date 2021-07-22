@@ -122,6 +122,7 @@ class AddForm extends React.Component {
                         Título: <input
                             type="text"
                             required
+                            maxLength="100"
                             onChange={this.handlerTitleChange}
                             className="form-control" /><br />
                         Ano: <input
@@ -142,6 +143,7 @@ class AddForm extends React.Component {
                         Resumo: <input
                            type="text"
                            required
+                           maxLength="10000"
                            onChange={this.handlerResumeChange}
                            className="form-control" /><br />
                         Trailer: <input

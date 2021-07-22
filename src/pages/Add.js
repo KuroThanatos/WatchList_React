@@ -1,6 +1,6 @@
 import React from 'react'
 import "../css/App.css";
-import AddForm from './AddForm';
+import AddForm from '../components/AddForm';
 
 const Add = () => {
   return (
@@ -43,7 +43,7 @@ async function addMovie(newMovie) {
     console.error(resposta);
     throw new Error('não foi possível enviar os dados do novo filme. Código= ' + resposta.status);
   }
-
+  window.location.href = "/list";
   // devolver os dados a serem usados na componente 
   return await resposta.json();
 }

@@ -1,78 +1,55 @@
 import React from 'react'
-import Card from 'react-bootstrap/Card'
+import {Card,Toast} from 'react-bootstrap'
 import "../css/App.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit,faTrash,faEye } from '@fortawesome/free-solid-svg-icons'
+
+import RUD from './RUD';
+
 
 const CardContainer = (props) => {
-//função que remove filmes (parametro id do filme)
-async function removeMovie(movie) {
-      
-    let resposta = await fetch("/api/FilmeControllerAPI/" + movie.id, {
-      method: "DELETE",
-      body: {id: movie.id}
-    });
-
-    if (!resposta.ok) {
-        // não obtivemos o 'código de erro' HTTP 200
-        console.error(resposta);
-        throw new Error('não foi possível remove o filme. Código= ' + resposta.status);
-    }
-
-    window.location.reload();
-    
-      // devolver os dados a serem usados na componente 
-      return await resposta.json();
-}
-
-    if (props.FilmsData) {
-        return props.FilmsData.map((movie, index) => {
+    const HandlerAnswer = (message) =>{
+        
+        if(message === "removeMovie"){
             return (
-                <div className="col-4" key={movie.id}>
-                    <Card>
-                        <Card.Img variant="top" src={"/Imagens/"+movie.poster} />
-                        <Card.Body>
-                            <Card.Title>
-                            
-                            <div className="row">
-                                <div className="col-8">
-                                    {movie.titulo}
-                                </div>
-                                <div className="col-4" style={{textAlign:"right"}}>
-                                    <a href="#modalEdit" className="text-success" data-toggle="modal"><FontAwesomeIcon icon={faEdit} /></a>
-                                    <a href="#modalDetails" className="text-info" data-toggle="modal"><FontAwesomeIcon icon={faEye} /></a>
-                                    <button onClick={() => removeMovie(movie)} className="text-danger"><FontAwesomeIcon icon={faTrash} /></button>
-                                
-                                </div>
-                            </div>
+                <Toast show={true} delay={3000} autohide>
+                  <Toast.Header>
+                    <img
+                      src="holder.js/20x20?text=%20"
+                      className="rounded me-2"
+                      alt=""
+                    />
+                    <strong className="me-auto">Erro</strong>
+                  </Toast.Header>
+                  <Toast.Body>Existem utilizadores que já viram este filme, não é possível apaga-lo</Toast.Body>
+                </Toast>
+          );
+        }
+        
+    }
+    if (props.FilmsData){
+        return props.FilmsData.map(
+            (movie, index) => {
+                return (
+                    <div className="col-4" key={movie.id}>
+                        <Card>
+                            <Card.Img variant="top" src={"/Imagens/"+movie.poster} />
+                            <Card.Body>
+                                <Card.Title>
+                                    <div className="row">
+                                        <div className="col-9 truncate-title"> {movie.titulo} </div>
+                                        <div className="col-3" style={{textAlign:"right"}}>
+                                            <RUD movie={movie} rud={HandlerAnswer}/>
+                                        </div>
+                                    </div>
                                 </Card.Title>
-                            <Card.Text className="truncate-overflow">
-                            {movie.resumo}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <div id="modalDetails" className="modal fade" role="dialog">
-                <div className="modal-dialog">
-
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal">&times;</button>
-                            <h4 className="modal-title" style={{textAlignLast: "center"}}>Register</h4>
-                        </div>
-                        <div className="modal-body">
-
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+                                <Card.Text className="truncate-overflow">
+                                {movie.resumo}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                     </div>
-                </div>
-            </div>
-                </div>
-
-            
-            )
-        })
+                )
+            }
+        )
     }
 }
 
@@ -123,27 +100,9 @@ class Cards extends React.Component {
         // estamos a ler os dados que são recebidos pelo componente
 
         return (
-            
                 <CardContainer FilmsData={movies} />
-            
         ) 
     }
-
-    /* removeReceita = (index) => {
-        // recuperar os receitas que estão representados na tabela
-        const { receitas } = this.state
-    
-        // alterar essa lista, retirando dela a receita identificado pelo 'index'
-        this.setState({
-          // filter é um método do 'state' que permite aplicar um filtro sobre os 
-          // dados do state
-          receitas: receitas.filter((receitas, i) => {
-            // devolve todos os dados que não forem iguais ao index
-            return i !== index
-          })
-        });
-      } */
-    
 }
 
 export default Cards
